@@ -24,7 +24,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'pf-@jxtojga)z+4s*uwbgjrq$aep62-thd0q7f&o77xtpka!_m'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 # SECURITY WARNING: App Engine's security features ensure that it is safe to
 # have ALLOWED_HOSTS = ['*'] when the app is deployed. If you deploy a Django
@@ -34,6 +34,12 @@ ALLOWED_HOSTS = ['*']
 
 # Application definition
 
+STATICFILES_FINDERS = (
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+#    'django.contrib.staticfiles.finders.DefaultStorageFinder',
+)
+
 INSTALLED_APPS = (
     'django.contrib.admin',
     'django.contrib.auth',
@@ -41,7 +47,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'polls'
+    'index'
 )
 
 MIDDLEWARE = (
@@ -83,7 +89,7 @@ DATABASES = {
         # If you are using Cloud SQL for MySQL rather than PostgreSQL, set
         # 'ENGINE': 'django.db.backends.mysql' instead of the following.
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'polls',
+        'NAME': 'forums',
         'USER': 'dohyunshin',
         'PASSWORD': 'skywall34',
         # For MySQL, set 'PORT': '3306' instead of the following. Any Cloud
@@ -120,8 +126,17 @@ USE_TZ = True
 # [START staticurl]
 # Fill in your cloud bucket and switch which one of the following 2 lines
 # is commented to serve static content from GCS
-STATIC_URL = 'https://storage.googleapis.com/travelforumsite/static/'
-#STATIC_URL = '/static/'
+#use the storage for updating to gcloud
+# how to update is at the example of serving from a cloud storage
+# https://cloud.google.com/appengine/docs/flexible/python/serving-static-files
+#STATIC_URL = 'https://storage.googleapis.com/travelforumsite/static/'
+STATIC_URL = '/static/'
 # [END staticurl]
 
-STATIC_ROOT = 'static/'
+#BASE_DIR starts at appDevProject, 2 cd .. back
+#STATIC_ROOT = os.path.join(BASE_DIR, "django/static")
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "django/static"),
+]
+
