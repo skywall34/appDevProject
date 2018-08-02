@@ -16,10 +16,14 @@ from django.conf import settings
 from django.conf.urls import include, url
 from django.contrib import admin
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+from django.contrib.auth import views
 
 urlpatterns = [
     url(r'^', include('index.urls')),
-    url(r'^admin/', admin.site.urls)
+    url(r'^admin/', admin.site.urls),
+    url(r'^login/', include('login.urls')),
+    url(r'^auth/', include('social_django.urls', namespace='social')), # social auth
+
 ]
 
 
