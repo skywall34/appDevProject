@@ -88,7 +88,7 @@ DATABASES = {
         'PASSWORD': 'skywall34',
         # For MySQL, set 'PORT': '3306' instead of the following. Any Cloud
         # SQL Proxy instances running locally must also be set to tcp:3306.
-        'PORT': '3306',
+        'PORT': '3307',
     }
 }
 # In the flexible environment, you connect to CloudSQL using a unix socket.
