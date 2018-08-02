@@ -40,7 +40,11 @@ deactivate () {
 # unset irrelevant variables
 deactivate nondestructive
 
+<<<<<<< HEAD
 VIRTUAL_ENV="/Users/dohyunshin/Projects/S382N/appDevProject/django/env"
+=======
+VIRTUAL_ENV="/home/xinshuang/Documents/Advanced Programming & App Development/appDevProject/django/env"
+>>>>>>> Susie
 export VIRTUAL_ENV
 
 _OLD_VIRTUAL_PATH="$PATH"
