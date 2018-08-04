@@ -39,6 +39,7 @@ LOGIN_REDIRECT_URL = 'index'
 #Google Auth
 SOCIAL_AUTH_GOOGLE_OAUTH2_KEY ='230896647599-bik5ohilg1k0kfc0rh40508d09d5l7e2.apps.googleusercontent.com'
 SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'ambsAK0aY0QliHNUj3ku5Hpb'
+SOCIAL_AUTH_URL_NAMESPACE = 'social'
 
 # Application definition
 
@@ -69,6 +70,37 @@ AUTHENTICATION_BACKENDS = (
 
     'django.contrib.auth.backends.ModelBackend', #this ensures login via Django auth
 )
+
+
+SOCIAL_AUTH_PIPELINE = (
+    'social.pipeline.social_auth.social_details',
+    'social.pipeline.social_auth.social_uid',
+    'social.pipeline.social_auth.auth_allowed',
+    'social.pipeline.social_auth.social_user',
+    'social.pipeline.user.get_username',
+    'social.pipeline.user.create_user',
+    'social.pipeline.social_auth.associate_user',
+    'social.pipeline.debug.debug',
+    'social.pipeline.social_auth.load_extra_data',
+    'social.pipeline.user.user_details',
+    'social.pipeline.debug.debug',
+)
+
+SOCIAL_AUTH_GOOGLE_OAUTH2_IGNORE_DEFAULT_SCOPE = True
+SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE = [
+'https://www.googleapis.com/auth/userinfo.email',
+'https://www.googleapis.com/auth/userinfo.profile'
+]
+
+
+# Google+ SignIn (google-plus)
+SOCIAL_AUTH_GOOGLE_PLUS_IGNORE_DEFAULT_SCOPE = True
+SOCIAL_AUTH_GOOGLE_PLUS_SCOPE = [
+'https://www.googleapis.com/auth/plus.login',
+'https://www.googleapis.com/auth/userinfo.email',
+'https://www.googleapis.com/auth/userinfo.profile'
+]
+
 
 MIDDLEWARE = (
     'django.middleware.security.SecurityMiddleware',
@@ -159,5 +191,5 @@ STATIC_URL = '/static/'
 #STATIC_ROOT = os.path.join(BASE_DIR, "django/static")
 
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "django/static"),
+   os.path.join(BASE_DIR, "/static"),
 ]

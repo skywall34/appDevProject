@@ -1,6 +1,6 @@
 from django.shortcuts import render
-from django.http import HttpResponse
-
+from django.views.generic import TemplateView
 # Create your views here.
-def LoginView(request):
-    return HttpResponse("Login Page")
+
+class LoginView(TemplateView):
+    template_name = "login.html"
