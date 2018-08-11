@@ -50,6 +50,7 @@ STATICFILES_FINDERS = (
 )
 
 INSTALLED_APPS = (
+    #'login.apps.LoginConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -58,7 +59,6 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'social_django', # for social authorization
     'index',
-    'login'
 )
 
 AUTHENTICATION_BACKENDS = (
