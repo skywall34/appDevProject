@@ -39,62 +39,85 @@
                 <div class="container">
                     
                         <!--<div class="col-md-6 col-md-offset-3 clean-superblock" id="contact"> -->
-                            <h2>Write your plan here</h2>
                             
                             <form action="#" method="get" accept-charset="utf-8" class="contact-form">
-                                <input type="text" id="country" placeholder="Country" class="form-control input-lg">
-                                <input type="text" id="city" placeholder="City" class="form-control input-lg">
-                                <input type="text" id="date" placeholder="Date" class="form-control input-lg">
-                                <input type="text" id="numofpeople" placeholder="Number of People" class="form-control input-lg">
-                                <input type="text" id="events" placeholder="Events" class="form-control input-lg">
-                                <input type="text" id="restaurants" placeholder="Restaurants" class="form-control input-lg">
-                                <input type="text" id="famousplaces" placeholder="Famous Places" class="form-control input-lg">
+                                <fieldset>
+                                <legend>Write your plan here</legend>
 
-                                <textarea rows="20" name="message" id="contact-body" placeholder="More details here... " class="form-control input-lg"></textarea>
+                                <input type="text" id="country" name="country" placeholder="Country" class="form-control input-lg" required>
+                                <input type="text" id="city" name="city" placeholder="City" class="form-control input-lg" required>
+                                <input type="text" id="date" name="date" placeholder="Date" class="form-control input-lg">
+                                <input type="text" id="numofpeople" name="numofpeople" placeholder="Number of People" class="form-control input-lg">
+                                <input type="text" id="themes" name="themes" placeholder="Themes" class="form-control input-lg" required>
+                                <input type="text" id="restaurants" name="restaurants" placeholder="Restaurants" class="form-control input-lg">
+                                <input type="text" id="famousplaces" name="famousplaces" placeholder="Famous Places" class="form-control input-lg">
 
-
-                  
-                            </form>
+                                <textarea rows="20" name="message" id="contact-body" placeholder="More details here... " class="form-control input-lg" required></textarea>                
                             
-                            <h3>Choose a picture and preview</h3>   
-                            <input id="img_input" type="file" accept="image/*"/>
-                                <label for="img_input"></label>
-                                <div class="preview_box"></div>
+                                <h3>Choose a picture and preview</h3>   
+                                <input id="img_input" type="file" name="img_input" accept="image/*"/ multiple >
+                                    <label for="img_input"></label>
+                                    <div class="preview_box"></div> <br>
 
-                            <hr />
 
-                            <br>
+                                <button onclick="getLocation()">Get your location</button>
 
-                            <div class="buttons clearfix">
-                            <button type="submit" class="btn btn-xlarge btn-clean-one" style="background-color:Tomato;"><b>Post</b></button>
-                            </div>  
-                           
+                                <div id="mapholder"></div>
+
+                                <div class="buttons clearfix" align="right">
+                                <button type="submit" class="btn btn-xlarge btn-success"><b>Post</b></button>
+                                </div>
+                                </fieldset>  
+                            </form>
                 </div>
             </section>
             </div>
 
-<!--
-            <footer>
-                Copyright &copy; <span class="tm-current-year">2018</span> Together  
-                - Collect from <a href="http://www.cssmoban.com/" target="_parent">Web Templates</a>.
-            </footer>    
+
         </div>
--->
+
         
         <!-- load JS files -->
         <script src="js/jquery-1.11.3.min.js"></script>         <!-- jQuery (https://jquery.com/download/) -->
         <script src="js/popper.min.js"></script>                <!-- Popper (https://popper.js.org/) -->
         <script src="js/bootstrap.min.js"></script>             <!-- Bootstrap (https://getbootstrap.com/) -->
-        <script>     
-       
-            $(document).ready(function(){
-                
-                // Update the current year in copyright
-                $('.tm-current-year').text(new Date().getFullYear());
+            
+        <script>
+        var x = document.getElementById("demo");
 
-            });
+        function getLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(showPosition, showError);
+            } else {
+                x.innerHTML = "Geolocation is not supported by this browser.";
+            }
+        }
 
-        </script>             
+        function showPosition(position) {
+            var latlon = position.coords.latitude + "," + position.coords.longitude;
+            var img_url = "https://maps.googleapis.com/maps/api/staticmap?center="
+            +latlon+"&zoom=14&size=400x300&key=AIzaSyBu-916DdpKAjTmJNIgngS6HL_kDIKU0aU";
+            document.getElementById("mapholder").innerHTML = "<img src='"+img_url+"'>";
+        }
+        //To use this code on your website, get a free API key from Google.
+        //Read more at: https://www.w3schools.com/graphics/google_maps_basic.asp
 
+        function showError(error) {
+            switch(error.code) {
+                case error.PERMISSION_DENIED:
+                    x.innerHTML = "User denied the request for Geolocation."
+                    break;
+                case error.POSITION_UNAVAILABLE:
+                    x.innerHTML = "Location information is unavailable."
+                    break;
+                case error.TIMEOUT:
+                    x.innerHTML = "The request to get user location timed out."
+                    break;
+                case error.UNKNOWN_ERROR:
+                    x.innerHTML = "An unknown error occurred."
+                    break;
+            }
+        }
+        </script>
 </body>
 </html>
