@@ -14,6 +14,8 @@
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
+import sendgrid
+from sendgrid.helpers import mail
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -44,8 +46,14 @@ SOCIAL_AUTH_URL_NAMESPACE = 'social'
 #send mail
 #Command: python3 -m smtpd -n -c DebuggingServer localhost:1025
 #TODO get deployment host
-EMAIL_HOST = 'localhost' # for local host, doesn't acutally send an email
-EMAIL_PORT = 1025
+EMAIL_HOST = 'smtp.sendgrid.net'
+EMAIL_HOST_USER = 'skywall34'
+EMAIL_HOST_PASSWORD = 'dohyun4865!!'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+SENDGRID_API_KEY = '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'
+SENDGRID_SENDER = 'doshinkorean@utexas.edu'
+
 
 
 
@@ -64,6 +72,8 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.core.mail',#for email
+    'django_cron',# for cron
     'social_django', # for social authorization
     'index',
 )
@@ -138,6 +148,12 @@ TEMPLATES = [
         },
     },
 ]
+
+
+CRON_CLASSES = [
+    "mysite.cron.SendEmailDaily",
+]
+
 
 WSGI_APPLICATION = 'mysite.wsgi.application'
 

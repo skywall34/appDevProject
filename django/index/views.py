@@ -9,6 +9,7 @@ from django.contrib.auth.forms import UserChangeForm, PasswordChangeForm
 from django.contrib import messages
 from django.contrib.auth import logout, authenticate, login, update_session_auth_hash
 from django.http import HttpResponseRedirect
+from django.core.mail import send_mail
 
 from .forms import UserForm,ProfileForm,LoginForm, RegistrationForm, EditProfileForm
 
@@ -120,6 +121,15 @@ def change_password(request):
         form = PasswordChangeForm(user=request.user)
         args =  {'form': form}
         return render(request, 'change_password.html', args)
+
+
+def send_email(request):
+    send_mail('Subject Here',
+              'Here is the message',
+              'doshinkorean@gmail.com',
+              ['doshinkorean@utexas.edu'],
+              fail_silently=False,)
+    return render(request, 'send_email.html')
 
 
 

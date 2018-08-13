@@ -19,4 +19,5 @@ urlpatterns = [
     url('^reset-password/done$', auth_views.PasswordResetDoneView.as_view(template_name="password_reset.html")),
     url('^reset-password/confirm/(?P<uidb64>[0-9A-Za-z]+)-(?P<token>.+)/$', auth_views.PasswordResetConfirmView.as_view(template_name="password_reset.html")),
     url('^reset-password/complete/$', auth_views.PasswordResetCompleteView.as_view(template_name="password_reset.html")),
+    url('^send_email/$', views.send_email, name='send_email'),
 ]
