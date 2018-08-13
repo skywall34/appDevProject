@@ -41,6 +41,14 @@ SOCIAL_AUTH_GOOGLE_OAUTH2_KEY ='230896647599-bik5ohilg1k0kfc0rh40508d09d5l7e2.ap
 SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'ambsAK0aY0QliHNUj3ku5Hpb'
 SOCIAL_AUTH_URL_NAMESPACE = 'social'
 
+#send mail
+#Command: python3 -m smtpd -n -c DebuggingServer localhost:1025
+#TODO get deployment host
+EMAIL_HOST = 'localhost' # for local host, doesn't acutally send an email
+EMAIL_PORT = 1025
+
+
+
 # Application definition
 
 STATICFILES_FINDERS = (
@@ -50,7 +58,6 @@ STATICFILES_FINDERS = (
 )
 
 INSTALLED_APPS = (
-    #'login.apps.LoginConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

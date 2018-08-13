@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Profile</title>
+    </head>
+    <body>
+        {% block body %}
+        <div class="containter">
+            <h1>Profile</h1>
+            <p>{{ user.username }}</p>
+            <p>{{ user.first_name }}</p>
+            <p>{{ user.last_name }}</p>
+            <p>{{ user.email }}</p>
+            <p> <a href="edit">Edit Profile</a><p>
+        </div>
+        {% endblock %}
+    </body>
+</html>
