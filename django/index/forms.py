@@ -2,7 +2,7 @@ from django.shortcuts import redirect, HttpResponseRedirect
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from django.contrib.auth.models import User
 from django.db import models
-from .models import Profile
+from .models import Profile,Post
 from django import forms
 
 
@@ -71,3 +71,9 @@ class EditProfileForm(UserChangeForm):
             'last_name',
             'password'
         )
+
+class PostForm(forms.ModelForm):
+
+    class Meta:
+        model = Post
+        fields = '_all_'

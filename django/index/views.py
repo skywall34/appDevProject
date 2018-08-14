@@ -11,7 +11,7 @@ from django.contrib.auth import logout, authenticate, login, update_session_auth
 from django.http import HttpResponseRedirect
 from django.core.mail import send_mail
 
-from .forms import UserForm,ProfileForm,LoginForm, RegistrationForm, EditProfileForm
+from .forms import UserForm,ProfileForm,LoginForm, RegistrationForm, EditProfileForm,PostForm
 
 
 @login_required
@@ -130,6 +130,21 @@ def send_email(request):
               ['doshinkorean@utexas.edu'],
               fail_silently=False,)
     return render(request, 'send_email.html')
+
+
+def create_post(request):
+    if request.method == 'POST':
+        form = PostForm(request.POST)
+
+        if form.is_valid():
+            form.save()
+            HttpResponseRedirect('/profile/')
+
+#todo: create an instance
+            post =
+
+        else:
+            return render(request, 'change_password.html', args)
 
 
 
