@@ -10,7 +10,7 @@ from django.contrib import messages
 from django.contrib.auth import logout, authenticate, login, update_session_auth_hash
 from django.http import HttpResponseRedirect
 
-from .forms import UserForm,ProfileForm,LoginForm, RegistrationForm, EditProfileForm
+from .forms import UserForm,ProfileForm,LoginForm, RegistrationForm, EditProfileForm,PostForm
 
 
 @login_required
@@ -120,6 +120,21 @@ def change_password(request):
         form = PasswordChangeForm(user=request.user)
         args =  {'form': form}
         return render(request, 'change_password.html', args)
+
+
+def create_post(request):
+    if request.method == 'POST':
+        form = PostForm(request.POST)
+
+        if form.is_valid():
+            form.save()
+            HttpResponseRedirect('/profile/')
+
+#todo: create an instance
+            post =
+
+        else:
+            return render(request, 'change_password.html', args)
 
 
 
