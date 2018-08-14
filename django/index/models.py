@@ -34,18 +34,18 @@ def save_user_profile(sender, instance, **kwargs):
 
 
 class Post(models.Model):
-    post_id = models.IntegerField(primary_key=True,unique=True,null=False)
-    username = models.ForeignKey(Profile,on_delete=models.CASCADE)
+    post_id = models.AutoField(primary_key=True)
+    username = models.CharField(max_length=100, blank=False)
     title = models.TextField(max_length=100,blank=False)
     post_type = models.CharField(max_length=100)
-    Country = models.CharField(max_length=64,blank=False)
+    country = models.CharField(max_length=64,blank=False)
     state = models.CharField(max_length=64, blank=False)
-    City = models.CharField(max_length=64)
-    date = models.DateField(auto_now=True)
-    num_of_people = models.IntegerField(max_length=64)
+    city = models.CharField(max_length=64)
+    date = models.DateTimeField(auto_now=True)
+    num_of_people = models.CharField(max_length=100, blank=False)
     theme = models.CharField(max_length=100,blank=False)
     description = models.TextField(blank=False)
-    image = models.ImageField()
+    image = models.ImageField(upload_to="img")
 
     def __str__(self):
         return self.title

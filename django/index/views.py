@@ -6,12 +6,16 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserChangeForm, PasswordChangeForm
+from django.contrib.auth.models import User
 from django.contrib import messages
 from django.contrib.auth import logout, authenticate, login, update_session_auth_hash
 from django.http import HttpResponseRedirect
 from django.core.mail import send_mail
 
 from .forms import UserForm,ProfileForm,LoginForm, RegistrationForm, EditProfileForm,PostForm
+from .models import Post
+
+import logging
 
 
 @login_required
@@ -98,7 +102,7 @@ def edit_profile(request):
 
         if form.is_valid():
             form.save()
-            HttpResponseRedirect('/profile/')
+            return HttpResponseRedirect('/profile/')
 
     else:
         form = EditProfileForm(instance=request.user)
@@ -115,7 +119,7 @@ def change_password(request):
             form.save()
             #keep the user logged in after change
             update_session_auth_hash(request, form.user)
-            HttpResponseRedirect('/profile/')
+            return HttpResponseRedirect('/profile/')
 
     else:
         form = PasswordChangeForm(user=request.user)
@@ -132,19 +136,58 @@ def send_email(request):
     return render(request, 'send_email.html')
 
 
+@login_required
 def create_post(request):
+    print("create_post")
+    logging.debug("create_post")
+    post_object = Post()
     if request.method == 'POST':
-        form = PostForm(request.POST)
-
+        print("request is post")
+        form = PostForm(request.POST, request.FILES)
         if form.is_valid():
-            form.save()
-            HttpResponseRedirect('/profile/')
+            print("request is valid")
+            print(request.user)
+            logging.debug(request.user)
+            post_object.username = request.user
+            post_object.title = form.cleaned_data['title']
+            post_object.post_type = form.cleaned_data['post_type']
+            post_object.country = form.cleaned_data['country']
+            post_object.state = form.cleaned_data['state']
+            post_object.city = form.cleaned_data['city']
+            post_object.num_of_people = form.cleaned_data['num_of_people']
+            post_object.theme = form.cleaned_data['theme']
+            post_object.description = form.cleaned_data['description']
+            post_object.image = form.cleaned_data['image']
+            post_object.save()
+            return HttpResponseRedirect('/profile/')
+        else:
+            print("request is not valid")
+            print(form.errors)
 
-#todo: create an instance
     else:
         form = PostForm()
-        args = {'form':form}
+        args = {'form': form}
         return render(request, 'post.html', args)
+
+#    def post(self, request, *args, **kwargs):
+#        self.object = post = self.get_object()
+#        if request.user.is_authenticated():
+#            form = UserCommentForm(request.POST)
+#        else:
+#            form = CommentForm(request.POST)
+#        if form.is_valid():
+#            comment = form.save(commit=False)
+#            comment.post = post
+#            if request.user.is_authenticated():
+#                comment.user = request.user
+#                comment.user_name = request.user
+#                comment.user_email = request.user.email
+#            comment.ip = '0.0.0.0'
+#            comment.save()
+#            return redirect(post.get_absolute_url())
+#        context = self.get_context_data(object=post)
+#        context['comment_form'] = form
+#        return self.render_to_response(context)
 
 
 

@@ -75,7 +75,7 @@ INSTALLED_APPS = (
     'django.core.mail',#for email
     'django_cron',# for cron
     'social_django', # for social authorization
-    'index',
+    'index.apps.IndexConfig',
 )
 
 AUTHENTICATION_BACKENDS = (
@@ -210,9 +210,15 @@ USE_TZ = True
 STATIC_URL = '/static/'
 # [END staticurl]
 
-#BASE_DIR starts at appDevProject, 2 cd .. back
+#BASE_DIR starts at appDevProject/django on local
 #STATIC_ROOT = os.path.join(BASE_DIR, "django/static")
 
 STATICFILES_DIRS = [
    os.path.join(BASE_DIR, "/static"),
 ]
+
+MEDIA_ROOT = '/Users/dohyunshin/Projects/S382N/appDevProject/django/static/media/'
+#site URL
+#MEDIA_URL =  'https://storage.googleapis.com/travelforumsite/static/media/'
+#local URL
+MEDIA_URL =  '/static/media/'
