@@ -72,6 +72,7 @@ class EditProfileForm(UserChangeForm):
             'password'
         )
 
+
 class PostForm(forms.ModelForm):
 
     class Meta:

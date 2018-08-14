@@ -141,10 +141,11 @@ def create_post(request):
             HttpResponseRedirect('/profile/')
 
 #todo: create an instance
-            post =
+    else:
+        form = PostForm()
+        args = {'form':form}
+        return render(request, 'post.html', args)
 
-        else:
-            return render(request, 'change_password.html', args)
 
 
 

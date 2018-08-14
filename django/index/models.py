@@ -32,8 +32,9 @@ def create_user_profile(sender, instance, created, **kwargs):
 def save_user_profile(sender, instance, **kwargs):
     instance.profile.save()
 
-class Post(models.Model)
-    post_id = models.IntegerField(primary_key=true,unique=True,null=False)
+
+class Post(models.Model):
+    post_id = models.IntegerField(primary_key=True,unique=True,null=False)
     username = models.ForeignKey(Profile,on_delete=models.CASCADE)
     title = models.TextField(max_length=100,blank=False)
     post_type = models.CharField(max_length=100)
