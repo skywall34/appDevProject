@@ -20,5 +20,6 @@ urlpatterns = [
     url('^reset-password/confirm/(?P<uidb64>[0-9A-Za-z]+)-(?P<token>.+)/$', auth_views.PasswordResetConfirmView.as_view(template_name="password_reset.html")),
     url('^reset-password/complete/$', auth_views.PasswordResetCompleteView.as_view(template_name="password_reset.html")),
     url('^send-email/$', views.send_email, name='send_email'),
-    url('^create-post/$', views.create_post, name='create_post')
+    url('^create-post/$', views.create_post, name='create_post'),
+    url('^travelblog/$', views.blogfilter, name='travelblog'),
 ]

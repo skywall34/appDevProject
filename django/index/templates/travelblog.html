@@ -7,12 +7,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title>TOGETHER - Your Online Trip Planner</title>
-
+    {% load staticfiles %}
     <!-- load stylesheets -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400">  
-    <link rel="stylesheet" href="font-awesome-4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/tooplate-style.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400">  <!-- Google web font "Open Sans" -->
+    <link rel="stylesheet" href="{% static 'index/font-awesome-4.7.0/css/font-awesome.min.css'%}">  <!--{% static 'font-awesome-4.7.0/css/font-awesome.min.css'%}  Font Awesome -->
+    <link rel="stylesheet" href="{% static 'index/css/bootstrap.min.css'%}">  <!-- {% static 'css/bootstrap.min.css'%}  Bootstrap style -->
+    <link rel="stylesheet" href="{% static 'index/css/tooplate-style.css'%}">
 
     <style>
     div.extrapadding {
@@ -50,11 +50,15 @@
 
                     <div class="collapse navbar-collapse tm-main-nav" id="tmMainNav">
                         <ul class="nav nav-fill tm-main-nav-ul">
-                            <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
-                            <li class="nav-item"><a class="nav-link active" href="#">Travel Blogs</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{% url 'home' %}">Home</a></li>
+                            <li class="nav-item"><a class="nav-link active" href="{% url 'profile' %}">Profile</a></li>
                             <li class="nav-item"><a class="nav-link" href="partner.html">Find Your Partner</a></li>
-                            <li class="nav-item"><a class="nav-link" href="team.html">Our Team</a></li>
-                            <li class="nav-item"><a class="nav-link" href="signin.html">Sign In</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{% url 'team' %}">Our Team</a></li>
+                            {% if user.is_authenticated%}
+                            <li class="nav-item"><a class="nav-link" href="/logout">Sign Out</a></li>
+                            {% else %}
+                            <li class="nav-item"><a class="nav-link" href="/login">Sign in</a></li>
+                            {% endif %}
                         </ul>
                     </div>    
                 </nav>
@@ -73,19 +77,33 @@
 
 
                     <nav> <!--class="navbar navbar-expand-sm bg-dark navbar-dark"-->
-                        <form action="/action_page.php"> 
-                        <div class="form-inline extrapadding">    
-                        <p style="color:black">Select Country: </p><select id="country" data-live-search="true"></select>
-                        <p style="color:black">Select State: </p><select id="state" data-live-search="true"></select>
-                        </div>
-                        <div class="form-inline extrapadding"> 
-                        <input class="form-control mr-sm-2" type="text" placeholder="Search">
-                        <button class="btn btn-success" type="submit">Search a Theme</button>
+                        <form method="get" action="/travelblog/">
+                        <div class="form-inline extrapadding">
+                            <input name="country" value="{{request.GET.country}}" placeholder="Country">
+                            <input name="state" value="{{request.GET.state}}" placeholder="State">
+                            <input name="theme" value="{{request.GET.theme}}" placeholder="Theme">
+                            <button class="btn btn-success" type="submit">Search</button>
+
                         </div>
                         </form>
                     </nav>
+                <div class="row extrapadding">
+                {% block content %}
+                      <ul>
+                      {% for blog in filter.qs %}
+                        <img class="post-img-top" alt="" src="{{blog.image.url}}%}" height="500" width="350">
+                          <h3 class="post-title">{{blog.title}}</h3>
+                          <p class="post-text">{{blog.theme}}</p>
 
-                    
+                      {% endfor %}
+                      </ul>
+                    {% endblock %}
+                </div>
+            </div>
+        </div>
+
+
+<!--
              <div class="row extrapadding">
                 <div class="col-md-4">
                     <div class="post-item">
@@ -142,22 +160,20 @@
                     </div>
                 </div>
             </div>
-            
-            <form action="post01.html" target="_blank">
-                <input type="submit" class="btn btn-success" value="Create my post" />
-            </form>
-            
+            {% if user.is_authenticated %}
+                <button><a href="/create-post/">Create Post</a></button>
+            {% endif %}
         </div>
     </div>
-          
+-->
           
         
         <!-- load JS files -->
-        <script src="js/jquery-1.11.3.min.js"></script>         <!-- jQuery (https://jquery.com/download/) -->
-        <script src="js/popper.min.js"></script>                <!-- Popper (https://popper.js.org/) -->
-        <script src="js/bootstrap.min.js"></script>             <!-- Bootstrap (https://getbootstrap.com/) -->
-        <script src="js/bootstrap-select.js"></script>
-        <script src="js/country-state-select.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>         <!-- jQuery (https://jquery.com/download/) -->
+        <script src="{% static 'index/js/popper.min.js' %}"></script>                <!-- Popper (https://popper.js.org/) -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>         <!-- Bootstrap (https://getbootstrap.com/) -->
+        <script src="{% static 'index/js/bootstrap-select.js' %}"></script>
+        <script src="{% static 'js/country-state-select.js' %}"></script>
 
         <script language="javascript">
             populateCountries("country", "state");

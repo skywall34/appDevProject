@@ -6,14 +6,16 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserChangeForm, PasswordChangeForm
-from django.contrib.auth.models import User
+from django.db.models import Q
 from django.contrib import messages
 from django.contrib.auth import logout, authenticate, login, update_session_auth_hash
 from django.http import HttpResponseRedirect
 from django.core.mail import send_mail
+from django.core.paginator import Paginator
 
-from .forms import UserForm,ProfileForm,LoginForm, RegistrationForm, EditProfileForm,PostForm
+from .forms import LoginForm, RegistrationForm, EditProfileForm,PostForm,TravelBlogForm
 from .models import Post
+from .filter import BlogFilter
 
 import logging
 
@@ -25,6 +27,7 @@ def Logout(request):
 
 class HomePageView(TemplateView):
     template_name = "index.html"
+
 
 
 class TeamView(TemplateView):
@@ -91,7 +94,8 @@ def login_user(request):
 
 
 def profile(request):
-    args = {'user': request.user} #pass the entire object
+    blog_filter = Post.objects.all().filter(username=request.user.username)  #
+    args = {'user': request.user ,'blogs':blog_filter} #pass the entire object
 
     return render(request, 'profile.html', args)
 
@@ -138,15 +142,15 @@ def send_email(request):
 
 @login_required
 def create_post(request):
-    print("create_post")
-    logging.debug("create_post")
+    #rint("create_post")
+    #logging.debug("create_post")
     post_object = Post()
     if request.method == 'POST':
-        print("request is post")
+        #print("request is post")
         form = PostForm(request.POST, request.FILES)
         if form.is_valid():
-            print("request is valid")
-            print(request.user)
+            #print("request is valid")
+            #print(request.user)
             logging.debug(request.user)
             post_object.username = request.user
             post_object.title = form.cleaned_data['title']
@@ -169,26 +173,28 @@ def create_post(request):
         args = {'form': form}
         return render(request, 'post.html', args)
 
-#    def post(self, request, *args, **kwargs):
-#        self.object = post = self.get_object()
-#        if request.user.is_authenticated():
-#            form = UserCommentForm(request.POST)
-#        else:
-#            form = CommentForm(request.POST)
-#        if form.is_valid():
-#            comment = form.save(commit=False)
-#            comment.post = post
-#            if request.user.is_authenticated():
-#                comment.user = request.user
-#                comment.user_name = request.user
-#                comment.user_email = request.user.email
-#            comment.ip = '0.0.0.0'
-#            comment.save()
-#            return redirect(post.get_absolute_url())
-#        context = self.get_context_data(object=post)
-#        context['comment_form'] = form
-#        return self.render_to_response(context)
 
+
+def blogfilter(request):
+    blog_list = Post.objects.all()
+    blog_filter = BlogFilter(request.GET, queryset=blog_list)
+    return render(request, 'travelblog.html', {'filter': blog_filter})
+
+
+
+#def travelblog(request):
+#    if request.method == 'GET':
+#        query_country = request.GET.get('country')
+#        query_state = request.GET.get('state')
+#        query_theme = request.GET.get('theme')
+#        results = Post.objects.filter(Q(country__icontains=query_country) & Q(state__icontains=query_state) & Q(theme__icontains=query_theme))
+
+#        pages = Paginator(request, results, 2)
+#        context = {
+#            'blogs':pages[0],
+#            'blog_range':pages[1],
+#        }
+#        return render(request, 'travelblog.html', context)
 
 
 

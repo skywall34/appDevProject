@@ -90,3 +90,15 @@ class PostForm(forms.ModelForm):
         #    'image'
         #)
         exclude = ['post_id', 'username', 'date']
+
+
+
+class TravelBlogForm(forms.ModelForm):
+
+    #country, state, theme
+    country = forms.CharField(label="country", max_length=100)
+    state = forms.CharField(label="state", max_length=100)
+    theme = forms.CharField(label="theme", max_length=100)
+
+
+
