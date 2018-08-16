@@ -26,7 +26,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'pf-@jxtojga)z+4s*uwbgjrq$aep62-thd0q7f&o77xtpka!_m'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False #change when deploying to gcloud
+DEBUG = True #change when deploying to gcloud
 
 # SECURITY WARNING: App Engine's security features ensure that it is safe to
 # have ALLOWED_HOSTS = ['*'] when the app is deployed. If you deploy a Django
@@ -217,8 +217,10 @@ STATICFILES_DIRS = [
    os.path.join(BASE_DIR, "/static"),
 ]
 
-MEDIA_ROOT = os.path.join(BASE_DIR, "django/static/media")
+MEDIA_ROOT = os.path.join(BASE_DIR, "/static/media")
 #site URL
 #MEDIA_URL =  'https://storage.googleapis.com/travelforumsite/static/media/'
 #local URL
-MEDIA_URL =  '/static/media/'
+MEDIA_URL = '/static/media/'
+
+

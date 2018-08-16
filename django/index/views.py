@@ -63,7 +63,15 @@ def register_user(request):
         form = RegistrationForm(request.POST)
         if form.is_valid():
             form.save()
+            send_mail('Subject Here',
+                      'Here is the message',
+                      'doshinkorean@gmail.com',
+                      ['doshinkorean@utexas.edu'],
+                      fail_silently=False, )
             return HttpResponseRedirect('/team/')
+        else:
+            print("request is not valid")
+            print(form.errors)
 
     else:
         form = RegistrationForm()
@@ -92,7 +100,7 @@ def login_user(request):
         form = LoginForm()
     return render(request, 'login.html', {'form': form})
 
-
+@login_required
 def profile(request):
     blog_filter = Post.objects.all().filter(username=request.user.username)  #
     args = {'user': request.user ,'blogs':blog_filter} #pass the entire object
