@@ -51,14 +51,10 @@
                     <div class="collapse navbar-collapse tm-main-nav" id="tmMainNav">
                         <ul class="nav nav-fill tm-main-nav-ul">
                             <li class="nav-item"><a class="nav-link" href="{% url 'home' %}">Home</a></li>
-                            <li class="nav-item"><a class="nav-link active" href="{% url 'profile' %}">Profile</a></li>
+                            <li class="nav-item"><a class="nav-link active" href="{% url 'travelblog' %}">Travel Blogs</a></li>
                             <li class="nav-item"><a class="nav-link" href="partner.html">Find Your Partner</a></li>
                             <li class="nav-item"><a class="nav-link" href="{% url 'team' %}">Our Team</a></li>
-                            {% if user.is_authenticated%}
-                            <li class="nav-item"><a class="nav-link" href="/logout">Sign Out</a></li>
-                            {% else %}
-                            <li class="nav-item"><a class="nav-link" href="/login">Sign in</a></li>
-                            {% endif %}
+                            <li class="nav-item"><a class="nav-link" href="{% url 'profile' %}">Profile</a></li>
                         </ul>
                     </div>    
                 </nav>
@@ -91,7 +87,7 @@
                 {% block content %}
                       <ul>
                       {% for blog in filter.qs %}
-                        <img class="post-img-top" alt="" src="{{blog.image.url}}%}" height="500" width="350">
+                          <a href="blog-summary/{{blog.pk}}"><img class="post-img-top" alt="" src="{{blog.image.url}}" height="500" width="350"></a>
                           <h3 class="post-title">{{blog.title}}</h3>
                           <p class="post-text">{{blog.theme}}</p>
 

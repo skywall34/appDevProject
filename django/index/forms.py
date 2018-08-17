@@ -89,7 +89,7 @@ class PostForm(forms.ModelForm):
         #    'description',
         #    'image'
         #)
-        exclude = ['post_id', 'username', 'date']
+        exclude = ['post_id', 'username','post_type', 'date', 'theme',]
 
 
 

@@ -34,7 +34,7 @@
                             <li class="nav-item"><a class="nav-link" href="{% url 'travelblog'%}">Travel Blogs</a></li>
                             <li class="nav-item"><a class="nav-link" href="partner.html">Find Your Partner</a></li>
                             <li class="nav-item"><a class="nav-link" href="{% url 'team' %}">Our Team</a></li>
-                            <li class="nav-item"><a class="nav-link" href="/logout">Sign Out</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{% url 'profile'%}">Profile</a></li>
                         </ul>
                     </div>
                 </nav>
@@ -44,36 +44,20 @@
             <!--<iframe src="{% static 'index/account01.html'%}" style="border:none;height:1000px;width:100%;"></iframe>-->
 
             <div class="tm-main-content">
-                {% block body %}
-                <div class="containter">
-                    <div style="background-color:#f1f1f1;padding:15px;">
-                        <h1>Account Info</h1>
-                        <p>{{ user.username }}</p>
-                        <p>{{ user.first_name }}</p>
-                        <p>{{ user.last_name }}</p>
-                        <p>{{ user.email }}</p>
-                        <p> <a href="edit">Edit Profile</a><p>
-                        <p> <a href="{% url 'create_post' %}">Create Blog</a><p>
-                    </div>
-
-                    <div style="background-color:#f1f1f1;padding:15px;">
-                        <h1>Blogs</h1>
-                        {% for blog in blogs %}
-                        <img class="post-img-top" alt="" src="{{blog.image.url}}" height="500" width="350">
-                        <h3 class="post-title">{{blog.title}}</h3>
-                        <p class="post-text">{{blog.theme}}</p>
-                        <p class="post-text">{{blog.post_type}}</p>
-                        <p class="post-text">{{blog.country}}</p>
-                        <p class="post-text">{{blog.state}}</p>
-                        <p class="post-text">{{blog.city}}</p>
-                        <p class="post-text">{{blog.num_of_people}}</p>
-                        <p class="post-text">{{blog.description}}</p>
-                        {% endfor %}
-                    </div>
-                </div>
+                {% block content %}
+                      <ul>
+                      {% for blog in filter %}
+                          <li>
+                              <a href="../../travelblog/blog-summary/{{blog.pk}}"><img class="post-img-top" alt="" src="{{blog.image.url}}" height="500" width="350"></a>
+                              <h3 class="post-title">{{blog.title}}</h3>
+                              <p class="post-text">{{blog.theme}}</p>
+                          </li>
+                      {% endfor %}
+                      </ul>
                 {% endblock %}
 
             </div>
+
 
 
 

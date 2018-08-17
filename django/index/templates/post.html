@@ -33,6 +33,22 @@
                 <p class="tm-site-name" >Together</p>
                 <p class="tm-site-description">Your Online Trip Planner</p>
 
+                <nav class="navbar navbar-expand-md tm-main-nav-container">
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#tmMainNav" aria-controls="tmMainNav" aria-expanded="false" aria-label="Toggle navigation">
+                            <i class="fa fa-bars"></i>
+                    </button>
+
+                    <div class="collapse navbar-collapse tm-main-nav" id="tmMainNav">
+                        <ul class="nav nav-fill tm-main-nav-ul">
+                            <li class="nav-item"><a class="nav-link" href="{%url 'home'%}">Home</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{% url 'travelblog'%}">Travel Blogs</a></li>
+                            <li class="nav-item"><a class="nav-link" href="partner.html">Find Your Partner</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{% url 'team' %}">Our Team</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/logout">Sign Out</a></li>
+                        </ul>
+                    </div>
+                </nav>
+
             </header>
 
             <div class="main-content">
@@ -44,6 +60,17 @@
                             <form action="/create-post/" method="post" accept-charset="utf-8" class="contact-form" enctype="multipart/form-data">
                                 <legend>Write your plan here</legend>
                                 {% csrf_token %}
+                                <select name="theme">
+                                    <option value="city">City</option>
+                                    <option value="nature">Nature</option>
+                                    <option value="food">Food</option>
+                                    <option value="social">Social</option>
+                                </select>
+                                <select name="post_type">
+                                    <option value="partner">Partner</option>
+                                    <option value="blog">Blog</option>
+                                </select>
+                                <br><br>
                                 {{form.as_p}}
                                 <button type="submit" onclick="" class="btn btn-xlarge btn-success"><b>Post</b></button>
                                 <!--<textarea rows="20" name="message" id="contact-body" placeholder="More details here... " class="form-control input-lg" value="{{description}}"required></textarea>-->
@@ -99,6 +126,8 @@
                     break;
             }
         }
+
+
         </script>
 </body>
 </html>

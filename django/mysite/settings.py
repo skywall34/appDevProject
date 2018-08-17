@@ -76,6 +76,7 @@ INSTALLED_APPS = (
     'django_cron',# for cron
     'social_django', # for social authorization
     'index.apps.IndexConfig',
+    'rest_framework', #REST API for android
 )
 
 AUTHENTICATION_BACKENDS = (
@@ -199,6 +200,7 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
+PROJECT_ROOT = os.path.dirname(os.path.dirname(__file__))
 
 # [START staticurl]
 # Fill in your cloud bucket and switch which one of the following 2 lines
@@ -211,16 +213,17 @@ STATIC_URL = '/static/'
 # [END staticurl]
 
 #BASE_DIR starts at appDevProject/django on local
-#STATIC_ROOT = os.path.join(BASE_DIR, "django/static")
+#FYI
+STATIC_ROOT = os.path.join(PROJECT_ROOT, 'static')
 
-STATICFILES_DIRS = [
-   os.path.join(BASE_DIR, "/static"),
-]
+#STATICFILES_DIRS = [
+#   os.path.join(PROJECT_ROOT, "/static"),
+#]
 
-MEDIA_ROOT = os.path.join(BASE_DIR, "/static/media")
+MEDIA_ROOT = os.path.join(STATIC_ROOT, 'media')
 #site URL
 #MEDIA_URL =  'https://storage.googleapis.com/travelforumsite/static/media/'
 #local URL
-MEDIA_URL = '/static/media/'
+MEDIA_URL = '/media/'
 
 

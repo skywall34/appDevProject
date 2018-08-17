@@ -1,7 +1,17 @@
 
 from django.conf.urls import url, include
 from django.contrib.auth import views as auth_views
+from django.conf.urls.static import static
 from . import views
+
+
+#REST API
+#http://www.django-rest-framework.org/
+from rest_framework import routers
+router = routers.DefaultRouter()
+router.register(r'users', views.UserViewSet)
+router.register(r'groups', views.GroupViewSet)
+router.register(r'blogs', views.BlogViewSet)
 
 
 
@@ -22,4 +32,9 @@ urlpatterns = [
     url('^send-email/$', views.send_email, name='send_email'),
     url('^create-post/$', views.create_post, name='create_post'),
     url('^travelblog/$', views.blogfilter, name='travelblog'),
+    url('^travelblog/blog-summary/(?P<pk>\d+)/$', views.blog_summary, name='blog_summary'),
+    url('^theme-list/(?P<item>\w+)/$', views.theme_list, name='theme_list'),
+    url('^routerurls/', include(router.urls)), #API router, URL routing
+    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')) #login urls for browsable api
 ]
+

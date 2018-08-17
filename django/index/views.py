@@ -13,6 +13,11 @@ from django.http import HttpResponseRedirect
 from django.core.mail import send_mail
 from django.core.paginator import Paginator
 
+#for the android REST API
+from django.contrib.auth.models import User, Group
+from rest_framework import viewsets
+from .serializers import UserSerializer, GroupSerializer, BlogSerializer
+
 from .forms import LoginForm, RegistrationForm, EditProfileForm,PostForm,TravelBlogForm
 from .models import Post
 from .filter import BlogFilter
@@ -27,6 +32,7 @@ def Logout(request):
 
 class HomePageView(TemplateView):
     template_name = "index.html"
+
 
 
 
@@ -156,18 +162,23 @@ def create_post(request):
     if request.method == 'POST':
         #print("request is post")
         form = PostForm(request.POST, request.FILES)
+        #print(form)
+        theme = request.POST['theme']
+        post_type = request.POST['post_type']
+        print(theme)
+        #get input of theme
         if form.is_valid():
             #print("request is valid")
             #print(request.user)
             logging.debug(request.user)
             post_object.username = request.user
             post_object.title = form.cleaned_data['title']
-            post_object.post_type = form.cleaned_data['post_type']
+            post_object.post_type = post_type
             post_object.country = form.cleaned_data['country']
             post_object.state = form.cleaned_data['state']
             post_object.city = form.cleaned_data['city']
             post_object.num_of_people = form.cleaned_data['num_of_people']
-            post_object.theme = form.cleaned_data['theme']
+            post_object.theme = theme
             post_object.description = form.cleaned_data['description']
             post_object.image = form.cleaned_data['image']
             post_object.save()
@@ -189,20 +200,38 @@ def blogfilter(request):
     return render(request, 'travelblog.html', {'filter': blog_filter})
 
 
+def blog_summary(request, pk):
+    single_blog = Post.objects.get(pk=pk)
+    return render(request, 'blog_summary.html', {'single_blog': single_blog})
 
-#def travelblog(request):
-#    if request.method == 'GET':
-#        query_country = request.GET.get('country')
-#        query_state = request.GET.get('state')
-#        query_theme = request.GET.get('theme')
-#        results = Post.objects.filter(Q(country__icontains=query_country) & Q(state__icontains=query_state) & Q(theme__icontains=query_theme))
 
-#        pages = Paginator(request, results, 2)
-#        context = {
-#            'blogs':pages[0],
-#            'blog_range':pages[1],
-#        }
-#        return render(request, 'travelblog.html', context)
+def theme_list(request, item):
+    blog_list_filter = Post.objects.filter(post_type=item)  # filter by theme
+    return render(request, 'theme_list.html', {'filter': blog_list_filter})
+
+
+#for the android REST API
+#http://www.django-rest-framework.org/
+class UserViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows users to be viewed or edited.
+    """
+    queryset = User.objects.all().order_by('-date_joined')
+    serializer_class = UserSerializer
+
+
+class GroupViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows groups to be viewed or edited.
+    """
+    queryset = Group.objects.all()
+    serializer_class = GroupSerializer
+
+
+class BlogViewSet(viewsets.ModelViewSet):
+    #API endpoint for all posts
+    queryset = Post.objects.all()
+    serializer_class = BlogSerializer
 
 
 
