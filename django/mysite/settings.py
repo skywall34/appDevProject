@@ -54,6 +54,9 @@ EMAIL_USE_TLS = True
 SENDGRID_API_KEY = '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'
 SENDGRID_SENDER = 'doshinkorean@utexas.edu'
 
+#Google Maps API
+GOOGLE_MAPS_API_KEY = 'AIzaSyBd3XiK78hkADRS_KQwcs0VFXxpmklHiPs'
+
 
 
 
@@ -77,6 +80,7 @@ INSTALLED_APPS = (
     'social_django', # for social authorization
     'index.apps.IndexConfig',
     'rest_framework', #REST API for android
+
 )
 
 AUTHENTICATION_BACKENDS = (

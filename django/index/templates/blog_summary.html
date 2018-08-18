@@ -5,6 +5,15 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+      /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+      #map {
+        height: 100%;
+        height: 400px;
+      }
+
+    </style>
     {% load staticfiles %}
 
     <title>TOGETHER - Your Online Traveling BOOK</title>
@@ -60,9 +69,27 @@
                         <p class="post-text">{{single_blog.description}}</p>
                     </div>
                 </div>
+                <div id="map"></div>
                 {% endblock %}
 
+
             </div>
+            <script>
+              var map;
+              var latitude = {{lat}};
+              var longitude = {{long}};
+              function initMap() {
+                  // The location
+                  var location = {lat: latitude, lng: longitude};
+                  // The map, centered at Uluru
+                  var map = new google.maps.Map(
+                      document.getElementById('map'), {zoom: 10, center: location});
+                  // The marker, positioned at Uluru
+                  var marker = new google.maps.Marker({position: location, map: map});
+              }
+            </script>
+            <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBd3XiK78hkADRS_KQwcs0VFXxpmklHiPs&callback=initMap"
+            async defer></script>
 
 
 

@@ -2,11 +2,10 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.views.generic import TemplateView
 # Create your views here.
+from django.conf import settings
 from django.shortcuts import render, get_object_or_404, redirect
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserChangeForm, PasswordChangeForm
-from django.db.models import Q
 from django.contrib import messages
 from django.contrib.auth import logout, authenticate, login, update_session_auth_hash
 from django.http import HttpResponseRedirect
@@ -21,6 +20,9 @@ from .serializers import UserSerializer, GroupSerializer, BlogSerializer
 from .forms import LoginForm, RegistrationForm, EditProfileForm,PostForm,TravelBlogForm
 from .models import Post
 from .filter import BlogFilter
+
+#for the Google Maps API
+from geopy.geocoders import Nominatim
 
 import logging
 
@@ -202,7 +204,11 @@ def blogfilter(request):
 
 def blog_summary(request, pk):
     single_blog = Post.objects.get(pk=pk)
-    return render(request, 'blog_summary.html', {'single_blog': single_blog})
+    geolocator = Nominatim(user_agent="django")
+    location = geolocator.geocode(single_blog.city, timeout=10)
+    print(location.address)
+    print((location.latitude, location.longitude))
+    return render(request, 'blog_summary.html', {'single_blog': single_blog, 'lat':location.latitude, 'long': location.longitude})
 
 
 def theme_list(request, item):
