@@ -24,15 +24,11 @@ class BlogSerializer(serializers.ModelSerializer):
 
 
     def create(self, validated_data):
-        """
-        Create and return a new `Snippet` instance, given the validated data.
-        """
+
         return Post.objects.create(**validated_data)
 
     def update(self, instance, validated_data):
-        """
-        Update and return an existing `Snippet` instance, given the validated data.
-        """
+
         instance.post_id = validated_data.get('post_id', instance.post_id)
         instance.username = validated_data.get('username', instance.username)
         instance.title = validated_data.get('title', instance.title)
@@ -46,3 +42,4 @@ class BlogSerializer(serializers.ModelSerializer):
         instance.image = validated_data.get('image', instance.image)
         instance.save()
         return instance
+

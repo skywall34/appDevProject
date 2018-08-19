@@ -26,7 +26,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'pf-@jxtojga)z+4s*uwbgjrq$aep62-thd0q7f&o77xtpka!_m'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True #change when deploying to gcloud
+DEBUG = False #change when deploying to gcloud
 
 # SECURITY WARNING: App Engine's security features ensure that it is safe to
 # have ALLOWED_HOSTS = ['*'] when the app is deployed. If you deploy a Django
@@ -212,22 +212,23 @@ PROJECT_ROOT = os.path.dirname(os.path.dirname(__file__))
 #use the storage for updating to gcloud
 # how to update is at the example of serving from a cloud storage
 # https://cloud.google.com/appengine/docs/flexible/python/serving-static-files
-#STATIC_URL = 'https://storage.googleapis.com/travelforumsite/static/'
-STATIC_URL = '/static/'
+STATIC_URL = 'https://storage.googleapis.com/travelforumsite/static/'
+#STATIC_URL = '/static/'
 # [END staticurl]
 
 #BASE_DIR starts at appDevProject/django on local
-#FYI
-STATIC_ROOT = os.path.join(PROJECT_ROOT, 'static')
+#FYI this looks to save your files in staticfiles, can't be same as STATICFILES_DIRS
+STATIC_ROOT = os.path.join(PROJECT_ROOT, 'staticfiles')
 
-#STATICFILES_DIRS = [
-#   os.path.join(PROJECT_ROOT, "/static"),
-#]
+#THis looks for static files on your localserver
+STATICFILES_DIRS = [
+   os.path.join(PROJECT_ROOT, "/static"),
+]
 
-MEDIA_ROOT = os.path.join(STATIC_ROOT, 'media')
+MEDIA_ROOT = os.path.join(PROJECT_ROOT, 'static/media')
 #site URL
-#MEDIA_URL =  'https://storage.googleapis.com/travelforumsite/static/media/'
+MEDIA_URL =  'https://storage.googleapis.com/travelforumsite/static/media/'
 #local URL
-MEDIA_URL = '/media/'
+#MEDIA_URL = '/media/'
 
 

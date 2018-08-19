@@ -35,6 +35,7 @@ urlpatterns = [
     url('^travelblog/blog-summary/(?P<pk>\d+)/$', views.blog_summary, name='blog_summary'),
     url('^theme-list/(?P<item>\w+)/$', views.theme_list, name='theme_list'),
     url('^routerurls/', include(router.urls)), #API router, URL routing
-    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')) #login urls for browsable api
+    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')), #login urls for browsable api
+
 ]
 

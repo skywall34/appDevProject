@@ -14,7 +14,9 @@ from django.core.paginator import Paginator
 
 #for the android REST API
 from django.contrib.auth.models import User, Group
-from rest_framework import viewsets
+from rest_framework import viewsets, status
+from rest_framework.views import APIView
+from rest_framework.response import Response
 from .serializers import UserSerializer, GroupSerializer, BlogSerializer
 
 from .forms import LoginForm, RegistrationForm, EditProfileForm,PostForm,TravelBlogForm
@@ -23,6 +25,8 @@ from .filter import BlogFilter
 
 #for the Google Maps API
 from geopy.geocoders import Nominatim
+
+
 
 import logging
 
@@ -41,40 +45,19 @@ class HomePageView(TemplateView):
 class TeamView(TemplateView):
     template_name = "team.html"
 
-#Have this check if user is already logged in, also handle login method
-#def register_user(request):
-#    user_object = User()
-    #check post request
-#    if request.method == 'POST':
-        #create a form instance and insert the data from the request
-#        form = LoginForm(request.POST)
 
-        #check valid
-#        if form.is_valid():
-#            user_object.username = form.cleaned_data['username']
-#            user_object.password = form.cleaned_data['password']
-#            user_object.email = form.cleaned_data['email']
-#            user_object.first_name = form.cleaned_data['first_name']
-#            user_object.last_name = form.cleaned_data['last_name']
-#            user_object.save()
-#            login(request, user_object)
-#            return HttpResponseRedirect('/team/')
-#
-#    else:
-#        form = LoginForm()
-#
-#    return render(request, 'login.html', {'form': form})
-
-
+# This takes a while before the email makes it
 def register_user(request):
     if request.method == 'POST':
         form = RegistrationForm(request.POST)
         if form.is_valid():
             form.save()
-            send_mail('Subject Here',
-                      'Here is the message',
+            email = form.cleaned_data['email']
+            str(email)
+            send_mail('Register Confirmation',
+                      'Thank you for registering with TOGETHER! You can now create and edit blogs!',
                       'doshinkorean@gmail.com',
-                      ['doshinkorean@utexas.edu'],
+                      [email],
                       fail_silently=False, )
             return HttpResponseRedirect('/team/')
         else:
@@ -198,16 +181,22 @@ def create_post(request):
 
 def blogfilter(request):
     blog_list = Post.objects.all()
+    #country is given
+    autofill_list_state = []
+    autofill_list_theme = []
+    for i in range(len(blog_list)):
+        autofill_list_state.append(blog_list[i].state)
+        autofill_list_theme.append(blog_list[i].theme)
     blog_filter = BlogFilter(request.GET, queryset=blog_list)
-    return render(request, 'travelblog.html', {'filter': blog_filter})
+    return render(request, 'travelblog.html', {'filter': blog_filter, 'autofill_list_state': autofill_list_state, 'autofill_list_theme': autofill_list_theme})
 
 
 def blog_summary(request, pk):
     single_blog = Post.objects.get(pk=pk)
     geolocator = Nominatim(user_agent="django")
     location = geolocator.geocode(single_blog.city, timeout=10)
-    print(location.address)
-    print((location.latitude, location.longitude))
+    #print(location.address)
+    #print((location.latitude, location.longitude))
     return render(request, 'blog_summary.html', {'single_blog': single_blog, 'lat':location.latitude, 'long': location.longitude})
 
 
@@ -238,6 +227,13 @@ class BlogViewSet(viewsets.ModelViewSet):
     #API endpoint for all posts
     queryset = Post.objects.all()
     serializer_class = BlogSerializer
+
+
+
+
+
+
+
 
 
 

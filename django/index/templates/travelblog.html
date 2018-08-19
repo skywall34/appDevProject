@@ -13,6 +13,11 @@
     <link rel="stylesheet" href="{% static 'index/font-awesome-4.7.0/css/font-awesome.min.css'%}">  <!--{% static 'font-awesome-4.7.0/css/font-awesome.min.css'%}  Font Awesome -->
     <link rel="stylesheet" href="{% static 'index/css/bootstrap.min.css'%}">  <!-- {% static 'css/bootstrap.min.css'%}  Bootstrap style -->
     <link rel="stylesheet" href="{% static 'index/css/tooplate-style.css'%}">
+    <link href = "https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css"
+         rel = "stylesheet">
+    <script src = "https://code.jquery.com/jquery-1.10.2.js"></script>
+    <script src = "https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+
 
     <style>
     div.extrapadding {
@@ -24,15 +29,9 @@
     #state option{
         width:120px;
     }
-    </style>
-<!-- 
-    <link rel="stylesheet" href="css/bootstrap-select.min.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
--->
+    </style>
+
 
 </head>
 
@@ -62,26 +61,21 @@
 
             </header>
 
- <!--search-->                             
-             <!--</form>
-                    <input type="text" placeholder="search Country,City..." class="search_text" > 
-                     <input type="submit" value="search" class="searchbutton">
-                 </form><br>
-             -->                  
-<!--post-->  
+
             <div class="tm-main-content">
 
 
                     <nav> <!--class="navbar navbar-expand-sm bg-dark navbar-dark"-->
                         <form method="get" action="/travelblog/">
-                        <div class="form-inline extrapadding">
-                            <input name="country" value="{{request.GET.country}}" placeholder="Country">
-                            <input name="state" value="{{request.GET.state}}" placeholder="State">
-                            <input name="theme" value="{{request.GET.theme}}" placeholder="Theme">
+                        <div class="ui-widget form-inline extrapadding autocomplete">
+                            <input id="country" name="country" value="{{request.GET.country}}" placeholder="Country">
+                            <input id="state" name="state" value="{{request.GET.state}}" placeholder="State">
+                            <input id="theme" name="theme" value="{{request.GET.theme}}" placeholder="Theme">
                             <button class="btn btn-success" type="submit">Search</button>
 
                         </div>
                         </form>
+
                     </nav>
                 <div class="row extrapadding">
                 {% block content %}
@@ -99,82 +93,37 @@
         </div>
 
 
-<!--
-             <div class="row extrapadding">
-                <div class="col-md-4">
-                    <div class="post-item">
-                        <img class="post-img-top" alt="" src="img/image-02.jpg" 
-                        height="500" width="350" >
-                        
-                            <h3 class="post-title">
-                                title
-                            </h3>
-                            <p class="post-text">
-                                 xxxxx
-                            </p>
-                            <p>
-                                <a class="btn" href="#">Detail</a>
-                            </p>
-                        
-                    </div>
-                </div>
-
-                <div class="col-md-4">
-                    <div class="post-item">
-                        <img class="post-img-top" alt="" src="img/image-03.jpg" 
-                        height="500" width="350" >
-                    
-                            <h3 class="post-title">
-                                title
-                            </h3>
-                            <p class="post-text">
-                                 xxxxx
-                            </p>
-                            <p>
-                                <a class="btn" href="#">Detail</a>
-                            </p>
-                       
-                    </div>
-                </div>
 
 
-                <div class="col-md-4">
-                    <div class="post">
-                        <img class="post-img-top" alt="" src="img/image-01.jpg" 
-                         height="500" width="350">
-                       
-                            <h3 class="post-title">
-                                title
-                            </h3>
-                            <p class="post-text">
-                                 xxxxx
-                            </p>
-                            <p>
-                              <a class="btn" href="#">Detail</a>
-                            </p>
-                      
-                    </div>
-                </div>
-            </div>
-            {% if user.is_authenticated %}
-                <button><a href="/create-post/">Create Post</a></button>
-            {% endif %}
-        </div>
-    </div>
--->
-          
-        
+
         <!-- load JS files -->
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>         <!-- jQuery (https://jquery.com/download/) -->
         <script src="{% static 'index/js/popper.min.js' %}"></script>                <!-- Popper (https://popper.js.org/) -->
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>         <!-- Bootstrap (https://getbootstrap.com/) -->
         <script src="{% static 'index/js/bootstrap-select.js' %}"></script>
-        <script src="{% static 'js/country-state-select.js' %}"></script>
+        <script src="{% static 'index/js/country-state-select.js' %}"></script>
 
-        <script language="javascript">
-            populateCountries("country", "state");
-            
-        </script>             
+
+        <script type="text/javascript">
+        $(function() {
+
+            var countries = ["Afghanistan","Albania","Algeria","Andorra","Angola","Anguilla","Antigua &amp; Barbuda","Argentina","Armenia","Aruba","Australia","Austria","Azerbaijan","Bahamas","Bahrain","Bangladesh","Barbados","Belarus","Belgium","Belize","Benin","Bermuda","Bhutan","Bolivia","Bosnia &amp; Herzegovina","Botswana","Brazil","British Virgin Islands","Brunei","Bulgaria","Burkina Faso","Burundi","Cambodia","Cameroon","Canada","Cape Verde","Cayman Islands","Central Arfrican Republic","Chad","Chile","China","Colombia","Congo","Cook Islands","Costa Rica","Cote D Ivoire","Croatia","Cuba","Curacao","Cyprus","Czech Republic","Denmark","Djibouti","Dominica","Dominican Republic","Ecuador","Egypt","El Salvador","Equatorial Guinea","Eritrea","Estonia","Ethiopia","Falkland Islands","Faroe Islands","Fiji","Finland","France","French Polynesia","French West Indies","Gabon","Gambia","Georgia","Germany","Ghana","Gibraltar","Greece","Greenland","Grenada","Guam","Guatemala","Guernsey","Guinea","Guinea Bissau","Guyana","Haiti","Honduras","Hong Kong","Hungary","Iceland","India","Indonesia","Iran","Iraq","Ireland","Isle of Man","Israel","Italy","Jamaica","Japan","Jersey","Jordan","Kazakhstan","Kenya","Kiribati","Kosovo","Kuwait","Kyrgyzstan","Laos","Latvia","Lebanon","Lesotho","Liberia","Libya","Liechtenstein","Lithuania","Luxembourg","Macau","Macedonia","Madagascar","Malawi","Malaysia","Maldives","Mali","Malta","Marshall Islands","Mauritania","Mauritius","Mexico","Micronesia","Moldova","Monaco","Mongolia","Montenegro","Montserrat","Morocco","Mozambique","Myanmar","Namibia","Nauro","Nepal","Netherlands","Netherlands Antilles","New Caledonia","New Zealand","Nicaragua","Niger","Nigeria","North Korea","Norway","Oman","Pakistan","Palau","Palestine","Panama","Papua New Guinea","Paraguay","Peru","Philippines","Poland","Portugal","Puerto Rico","Qatar","Reunion","Romania","Russia","Rwanda","Saint Pierre &amp; Miquelon","Samoa","San Marino","Sao Tome and Principe","Saudi Arabia","Senegal","Serbia","Seychelles","Sierra Leone","Singapore","Slovakia","Slovenia","Solomon Islands","Somalia","South Africa","South Korea","South Sudan","Spain","Sri Lanka","St Kitts &amp; Nevis","St Lucia","St Vincent","Sudan","Suriname","Swaziland","Sweden","Switzerland","Syria","Taiwan","Tajikistan","Tanzania","Thailand","Timor L'Este","Togo","Tonga","Trinidad &amp; Tobago","Tunisia","Turkey","Turkmenistan","Turks &amp; Caicos","Tuvalu","Uganda","Ukraine","United Arab Emirates","United Kingdom","United States of America","Uruguay","Uzbekistan","Vanuatu","Vatican City","Venezuela","Vietnam","Virgin Islands (US)","Yemen","Zambia","Zimbabwe",];
+            var state = {{autofill_list_state|safe}};
+            var theme = {{autofill_list_theme|safe}};
+            $( "#country" ).autocomplete({
+               source: countries,
+               autoFocus: true
+            });
+            $( "#state" ).autocomplete({
+               source: state,
+               autoFocus: true
+            });
+            $( "#theme" ).autocomplete({
+               source: theme,
+               autoFocus: true
+            });
+         });
+
+        </script>
 
 </body>
 </html>
