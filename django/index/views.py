@@ -114,7 +114,7 @@ def edit_profile(request):
 
 
 
-def change_password(request):
+def password(request):
     if request.method == "POST":
         form = PasswordChangeForm(data=request.POST, user=request.user)
 
@@ -127,7 +127,7 @@ def change_password(request):
     else:
         form = PasswordChangeForm(user=request.user)
         args =  {'form': form}
-        return render(request, 'change_password.html', args)
+        return render(request, 'password.html', args)
 
 
 def send_email(request):
