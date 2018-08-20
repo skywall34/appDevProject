@@ -1,4 +1,4 @@
 cron:
 - description: "1 minute email job"
   url: /send-email/
-  schedule: every 1 mins
+  schedule: every 24 hours
