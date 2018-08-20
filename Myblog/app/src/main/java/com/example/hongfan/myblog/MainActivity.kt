@@ -4,7 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.View
-import android.widget.TextView
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -12,11 +11,6 @@ import com.google.android.gms.common.SignInButton
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.Task
 import kotlinx.android.synthetic.main.activity_main.*
-
-
-
-
-
 
 const val RC_SIGN_IN = 123
 
@@ -37,15 +31,7 @@ class MainActivity : AppCompatActivity() {
         val mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
         name.visibility = View.VISIBLE
         signin_button.visibility = View.VISIBLE
-        val signin_button_child_count = signin_button.childCount
-        for (i in 0..signin_button_child_count) {
-            if (signin_button.getChildAt(i) is TextView) {
-                (signin_button.getChildAt(i) as TextView).text = getString(R.string.signinbutton_text)
-            }
-        }
 
-        signin_button.visibility= View.VISIBLE
-        name.visibility = View.GONE
         signin_button.setSize(SignInButton.SIZE_STANDARD);
         signin_button.setOnClickListener {
             val signInIntent = mGoogleSignInClient.signInIntent
@@ -54,7 +40,7 @@ class MainActivity : AppCompatActivity() {
             val acct = GoogleSignIn.getLastSignedInAccount(this)
             if (acct != null) {
                 signin_button.visibility = View.GONE
-                name.text=acct.displayName
+                name.text="lastsuccess"
                 name.visibility=View.VISIBLE
 
             }
@@ -79,6 +65,7 @@ class MainActivity : AppCompatActivity() {
         try {
             val account = completedTask.getResult(ApiException::class.java)
             signin_button.visibility = View.GONE
+            name.text = account.displayName
             val postintent = Intent(this,post::class.java)
             startActivity(postintent)
 
@@ -86,7 +73,7 @@ class MainActivity : AppCompatActivity() {
             // The ApiException status code indicates the detailed failure reason.
             // Please refer to the GoogleSignInStatusCodes class reference for more information.
            signin_button.visibility = View.VISIBLE
-            name.text="Fail to login"
+            name.text=getString(R.string.fail_login)
 
         }
 
