@@ -1,9 +1,9 @@
+package com.example.hongfan.myblog
+
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.View
-import com.example.hongfan.myblog.R
-import com.example.hongfan.myblog.post
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -24,7 +24,6 @@ class MainActivity : AppCompatActivity() {
         // Configure sign-in to request the user's ID, email address, and basic
 // profile. ID and basic profile are included in DEFAULT_SIGN_IN.
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-
                 .requestEmail()
                 .build()
 
@@ -48,7 +47,37 @@ class MainActivity : AppCompatActivity() {
 
         }
 
+        sign_out_button.setOnClickListener {
+            mGoogleSignInClient.signOut()
+                    .addOnCompleteListener(this) {
+                        updateUI(GoogleSignIn.getLastSignedInAccount(this))
+                    }
+            mGoogleSignInClient.revokeAccess()
+                    .addOnCompleteListener(this) {
+                        updateUI(GoogleSignIn.getLastSignedInAccount(this))
+                    }
+        }
 
+    }
+
+
+    fun updateUI(account: GoogleSignInAccount?) {
+        if (account != null) {
+            signin_button.visibility = View.GONE
+            name.visibility = View.VISIBLE
+            name.text = account.displayName
+
+            sign_out_button.visibility = View.VISIBLE
+        }
+        else {
+            signin_button.visibility = View.VISIBLE
+
+            name.visibility = View.GONE
+            name.text = ""
+
+            sign_out_button.visibility = View.GONE
+        }
+    }
     public override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
@@ -69,7 +98,7 @@ class MainActivity : AppCompatActivity() {
             val account = completedTask.getResult(ApiException::class.java)
             signin_button.visibility = View.GONE
 
-            val postintent = Intent(this, post::class.java)
+            val postintent = Intent(this,Post::class.java)
             postintent.putExtra("username",account.displayName)
             startActivity(postintent)
 

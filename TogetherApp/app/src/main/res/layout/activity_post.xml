@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+android:id="@+id/container"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:orientation="vertical"
+android:padding="16dp"
+tools:context=".Post"
+style="?android:attr/buttonBarStyle" >
+
+<android.support.design.widget.TextInputLayout
+    android:id="@+id/post_title"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:errorEnabled="true"
+    app:counterEnabled="true"
+    app:counterMaxLength="15">
+
+    <android.support.design.widget.TextInputEditText
+        style="@style/TextAppearance.Design.Hint"
+        android:layout_width="match_parent"
+        android:layout_height="36dp"
+        android:hint="@string/titlehint"
+        android:inputType="text"
+        android:singleLine="true"
+        android:textSize="16sp" />
+</android.support.design.widget.TextInputLayout>
+
+<android.support.design.widget.TextInputLayout
+    android:id="@+id/post_country"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:errorEnabled="true"
+    >
+
+
+    <android.support.design.widget.TextInputEditText
+        style="@style/TextAppearance.Design.Hint"
+        android:layout_width="match_parent"
+        android:layout_height="38dp"
+        android:hint="@string/countryHint"
+        android:inputType="text"
+        android:singleLine="true"
+        android:textSize="16sp" />
+</android.support.design.widget.TextInputLayout>
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_vertical"
+    android:gravity="start">
+
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/post_state"
+        android:layout_width="167dp"
+        android:layout_height="52dp"
+        android:gravity="start"
+        app:errorEnabled="true">
+
+        <android.support.design.widget.TextInputEditText
+            style="@style/TextAppearance.Design.Hint"
+            android:layout_width="152dp"
+            android:layout_height="38dp"
+            android:hint="@string/stateHint"
+            android:inputType="text"
+            android:singleLine="true"
+            android:textSize="16sp" />
+    </android.support.design.widget.TextInputLayout>
+
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/post_city"
+        android:layout_width="199dp"
+        android:layout_height="match_parent"
+        app:errorEnabled="true">
+
+        <android.support.design.widget.TextInputEditText
+            style="@style/TextAppearance.Design.Hint"
+            android:layout_width="158dp"
+            android:layout_height="39dp"
+            android:gravity="end"
+            android:hint="@string/cityHint"
+            android:inputType="text"
+            android:singleLine="true"
+            android:textSize="16sp" />
+    </android.support.design.widget.TextInputLayout>
+
+
+</LinearLayout>
+
+
+
+
+<android.support.design.widget.TextInputLayout
+    android:id="@+id/post_theme"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:counterEnabled="true"
+    app:counterMaxLength="20"
+    app:errorEnabled="true">
+
+    <android.support.design.widget.TextInputEditText
+        style="@style/TextAppearance.Design.Hint"
+        android:layout_width="match_parent"
+        android:layout_height="46dp"
+        android:hint="@string/themeHint"
+        android:inputType="text"
+        android:singleLine="true"
+        android:textSize="16sp" />
+</android.support.design.widget.TextInputLayout>
+
+
+
+
+<android.support.design.widget.TextInputLayout
+    android:id="@+id/post_discription"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:errorEnabled="true"
+    app:counterEnabled="true"
+    app:counterMaxLength="100">
+
+    <EditText
+        style="@style/TextAppearance.Design.Hint"
+        android:layout_width="match_parent"
+        android:layout_height="97dp"
+        android:gravity="top"
+        android:hint="@string/descriptionHint"
+        android:inputType="textMultiLine"
+
+        android:minLines="3"
+        android:singleLine="false"
+        android:textSize="14sp" />
+
+</android.support.design.widget.TextInputLayout>
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_horizontal"
+
+    >
+
+    <Button
+        android:id="@+id/btn_upload"
+        android:layout_width="184dp"
+        android:layout_height="37dp"
+        android:text="@string/btn_upload"
+        android:textColor="@android:color/background_light"
+        />
+
+
+    <Button
+        android:id="@+id/btn_submit"
+        android:layout_width="161dp"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal"
+        android:text="@string/btn_submit"
+
+
+        />
+</LinearLayout>
+
+
+
+
+
+</LinearLayout>
