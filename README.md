@@ -1,4 +1,14 @@
-# appDevProject
+# UT-APAD Project Group 7
+
+Members:
+
+Mike Shin: master
+
+Fan Hong: master, fan_new
+
+Susie Zhao: master, Susie
+
+
 Repository for App Dev Project
 
 # Git Commands To Use
