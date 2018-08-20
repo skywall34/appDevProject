@@ -8,10 +8,8 @@ class SendEmailDaily(CronJobBase):
     code = 'mysite.send_email_daily'    # a unique code
 
     def do(self):
-        send_mail(
-            'Subject here',
-            'Here is the message',
-            'doshinkorean@gmail.com',
-            ['doshinkorean@gmail.com'],
-            fail_silently=False,
-        )
+        send_mail('Subscription Update',
+                  'Thank you for subscibing to TOGETHER! For now we are a new service so we will send updates when we can!',
+                  'doshinkorean@gmail.com',
+                  ['doshinkorean@utexas.edu'],
+                  fail_silently=False, )

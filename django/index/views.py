@@ -131,9 +131,9 @@ def password(request):
 
 
 def send_email(request):
-    send_mail('Subject Here',
-              'Here is the message',
-              'doshinkorean@gmail.com',
+    send_mail('Subscription Update',
+              'Thank you for subscibing to TOGETHER! For now we are a new service so we will send updates when we can!',
+              'together@gmail.com',
               ['doshinkorean@utexas.edu'],
               fail_silently=False,)
     return render(request, 'send_email.html')
