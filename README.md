@@ -51,3 +51,9 @@ For exampes, to set up the server...
 4) Choose command (runserver/migrations/restart_server/deploy_app)
 
 ##deploy_app has not been implemented yet 
+
+
+# August 28th, 2018: Mike Shin
+
+Due to the project deadline being over, I removed sensitive data (settings.py) so for people who want to use this you will have to setup your own scripts, DBMS, and server.
+
