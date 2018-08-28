@@ -56,7 +56,7 @@ def register_user(request):
             str(email)
             send_mail('Register Confirmation',
                       'Thank you for registering with TOGETHER! You can now create and edit blogs!',
-                      'doshinkorean@gmail.com',
+                      '',
                       [email],
                       fail_silently=False, )
             return HttpResponseRedirect('/team/')

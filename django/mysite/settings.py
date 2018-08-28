@@ -23,7 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/1.8/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'pf-@jxtojga)z+4s*uwbgjrq$aep62-thd0q7f&o77xtpka!_m'
+SECRET_KEY = ''
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False #change when deploying to gcloud
@@ -39,23 +39,23 @@ LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = 'index'
 
 #Google Auth
-SOCIAL_AUTH_GOOGLE_OAUTH2_KEY ='230896647599-bik5ohilg1k0kfc0rh40508d09d5l7e2.apps.googleusercontent.com'
-SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'ambsAK0aY0QliHNUj3ku5Hpb'
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY =''
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = ''
 SOCIAL_AUTH_URL_NAMESPACE = 'social'
 
 #send mail
 #Command: python3 -m smtpd -n -c DebuggingServer localhost:1025
 #TODO get deployment host
 EMAIL_HOST = 'smtp.sendgrid.net'
-EMAIL_HOST_USER = 'skywall34'
-EMAIL_HOST_PASSWORD = 'dohyun4865!!'
+EMAIL_HOST_USER = ''
+EMAIL_HOST_PASSWORD = ''
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-SENDGRID_API_KEY = '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'
-SENDGRID_SENDER = 'doshinkorean@utexas.edu'
+SENDGRID_API_KEY = ''
+SENDGRID_SENDER = ''
 
 #Google Maps API
-GOOGLE_MAPS_API_KEY = 'AIzaSyBd3XiK78hkADRS_KQwcs0VFXxpmklHiPs'
+GOOGLE_MAPS_API_KEY = ''
 
 
 
@@ -172,8 +172,8 @@ DATABASES = {
         # 'ENGINE': 'django.db.backends.mysql' instead of the following.
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'forums',
-        'USER': 'dohyunshin',
-        'PASSWORD': 'skywall34',
+        'USER': '',
+        'PASSWORD': '',
         # For MySQL, set 'PORT': '3306' instead of the following. Any Cloud
         # SQL Proxy instances running locally must also be set to tcp:3306.
         'PORT': '3306',

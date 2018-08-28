@@ -77,18 +77,6 @@ class PostForm(forms.ModelForm):
 
     class Meta:
         model = Post
-        #fields = (
-        #    #username should be given by login
-        #    'title',
-        #    'post_type',
-        #    'country',
-        #    'state',
-        #    'city',
-        #    'num_of_people',
-        #    'theme',
-        #    'description',
-        #    'image'
-        #)
         exclude = ['post_id', 'username','post_type', 'date', 'theme',]
 
 

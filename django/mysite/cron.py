@@ -10,6 +10,6 @@ class SendEmailDaily(CronJobBase):
     def do(self):
         send_mail('Subscription Update',
                   'Thank you for subscibing to TOGETHER! For now we are a new service so we will send updates when we can!',
-                  'doshinkorean@gmail.com',
-                  ['doshinkorean@utexas.edu'],
+                  '',
+                  [''],
                   fail_silently=False, )
